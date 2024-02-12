@@ -1,4 +1,5 @@
 To test this project, you'll need a MySQL database.
+
 Enter those lines :
 CREATE TABLE associations(
     association_id INT(11) PRIMARY KEY AUTO_INCREMENT,
@@ -15,5 +16,7 @@ CREATE TABLE associations(
     association_longitude VARCHAR(50),
     association_latitude VARCHAR(50)
 )
+
+To start the servers, enter "npm run dev" in the frontend folder, and "npm start" in the backend one.
 
 If you run into any trouble, please let me know so I can fix it !
