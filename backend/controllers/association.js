@@ -4,6 +4,7 @@ import {
     insertAssociation,
     updateAssociationById,
     deleteAssociationById,
+    searchedAssociations,
 } from "../models/AssociationModel.js";
 
 export const showAssociations = (req, res) => {
@@ -18,6 +19,16 @@ export const showAssociations = (req, res) => {
 
 export const showAssociationById = (req, res) => {
     getAssociationById(req.params.id, (err, results) => {
+        if(err){
+            res.send(err);
+        } else {
+            res.json(results)
+        }
+    })
+}
+
+export const showSearchedAssociations = (req, res) => {
+    searchedAssociations(req.params.term, (err, results)=> {
         if(err){
             res.send(err);
         } else {
