@@ -25,7 +25,7 @@ const router = createRouter({
     {
       name: 'SingleAsso',
       path: '/association/:id',
-      component: Edit,
+      component: SingleAsso,
     },
   ]
 })
