@@ -21,7 +21,7 @@
                 association: {},
 
                 map: null,
-                marker: null
+                marker: null,
             }
         },
         
@@ -69,6 +69,7 @@
                 <p>Nom : {{ this.association.association_name }}</p>
                 <p>Description :</p>
                 <p>{{ this.association.association_description }}</p>
+                <p v-if="this.association.association_category != '' && this.association.association_category != null">Catégorie : {{ this.association.association_category }}</p>
             </div>
         </div>
 

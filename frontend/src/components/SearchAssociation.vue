@@ -16,7 +16,7 @@
                     this.search = []
                     let response = await axios.get(`http://localhost:5000/associations/search/${this.searchInput}`)
                     this.search = response.data
-                    console.log(this.search)
+                    this.searchInput= ''
                 } catch(err) {
                     console.log(err)
                 }

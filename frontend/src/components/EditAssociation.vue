@@ -4,18 +4,21 @@
     export default {
         data(){
             return{
-                associationName: "",
-                associationDesc: "",
-                associationRepName: "",
-                associationRepSurname: "",
-                associationMail: "",
-                associationPhone: "",
-                associationAddress: "",
-                associationTown: "",
-                associationPostalCode: "",
-                associationComplementAddress: "",
-                associationLng: "",
-                associationLat: ""
+                association: {
+                    association_name: "",
+                    association_description: "",
+                    association_category: "",
+                    association_representative_name: "",
+                    association_representative_surname: "",
+                    association_mail: "",
+                    association_phone: "",
+                    association_adress: "",
+                    association_town: "",
+                    association_postal_code: "",
+                    association_complement_address: "",
+                    association_longitude: "",
+                    association_latitude: ""
+                }  
             }
         },
 
@@ -26,59 +29,49 @@
         methods:{
             async getAssociationById(){
                 try{
-                    const response = await axios.get(
-                        `http://localhost:5000/associations/${this.$route.params.id}`
-                    )
-                    this.associationName= response.data.association_name,
-                    this.associationDesc= response.data.association_description,
-                    this.associationRepName= response.data.association_representative_name,
-                    this.associationRepSurname= response.data.association_representative_surname,
-                    this.associationMail= response.data.association_mail,
-                    this.associationPhone= response.data.association_phone,
-                    this.associationAddress= response.data.association_adress,
-                    this.associationTown= response.data.association_town,
-                    this.associationPostalCode= response.data.association_postal_code,
-                    this.associationComplementAddress= response.data.association_complement_address,
-                    this.associationLng= response.data.association_longitude,
-                    this.associationLat= response.data.association_latitude
-                }catch(err){
+                    const response = await axios.get(`http://localhost:5000/associations/${this.$route.params.id}`);
+                        
+                    this.association = {
+                        association_name: response.data.association_name,
+                        association_description: response.data.association_description,
+                        association_category: response.data.association_category,
+                        association_representative_name: response.data.association_representative_name,
+                        association_representative_surname: response.data.association_representative_surname,
+                        association_mail: response.data.association_mail,
+                        association_phone: response.data.association_phone,
+                        association_adress: response.data.association_adress,
+                        association_town: response.data.association_town,
+                        association_postal_code: response.data.association_postal_code,
+                        association_complement_address: response.data.association_complement_address,
+                        association_longitude: response.data.association_longitude,
+                        association_latitude: response.data.association_latitude
+                    }
+                } catch(err){
                     console.log(err)
                 }
             },
 
             async updateAssociation(){
                 try{
-                    await axios.put(
-                        `http://localhost:5000/associations/${this.$route.params.id}`,
-                        {
-                            association_name: this.associationName,
-                            association_description: this.associationDesc,
-                            association_representative_name: this.associationRepName,
-                            association_representative_surname: this.associationRepSurname,
-                            association_mail: this.associationMail,
-                            association_phone: this.associationPhone,
-                            association_adress: this.associationAddress,
-                            association_town: this.associationTown,
-                            association_postal_code: this.associationPostalCode,
-                            association_complement_address: this.associationComplementAddress,
-                            association_longitude: this.associationLng,
-                            association_latitude: this.associationLat
-                        }
-                    )
-                    this.associationName="",
-                    this.associationDesc="",
-                    this.associationRepName= "",
-                    this.associationRepSurname= "",
-                    this.associationMail= "",
-                    this.associationPhone= "",
-                    this.associationAddress= "",
-                    this.associationTown= "",
-                    this.associationPostalCode= "",
-                    this.associationComplementAddress= "",
-                    this.associationLng= "",
-                    this.associationLat= ""
+                    await axios.put(`http://localhost:5000/associations/${this.$route.params.id}`, this.association);
+                        
+                    this.association = {
+                        association_name: "",
+                        association_description: "",
+                        association_category: "",
+                        association_representative_name: "",
+                        association_representative_surname: "",
+                        association_mail: "",
+                        association_phone: "",
+                        association_adress: "",
+                        association_town: "",
+                        association_postal_code: "",
+                        association_complement_address: "",
+                        association_longitude: "",
+                        association_latitude: ""
+                    }
                 } catch(err){
-                    console.log("erreur", err)
+                    console.log(err.response.data)
                 }
             }
         }
@@ -93,37 +86,44 @@
         <div>
             <label>Identité de l'association</label>
             <div>
-                <input type="text" placeholder="Nom" v-model="associationName">
-                <p class="error" v-if="associationName.length <= 0">Champ obligatoire</p>
-                <input type="text" placeholder="Description" v-model="associationDesc">
+                <input type="text" placeholder="Nom" v-model="association.association_name">
+                <p class="error" v-if="association.association_name.length <= 0">Champ obligatoire</p>
+                <input type="text" placeholder="Description" v-model="association.association_description">
+                <select name="category" id="category" v-model="association.association_category">
+                    <option value="main" disabled selected>Catégorie</option>
+                    <option value="sport">sport</option>
+                    <option value="santé">santé</option>
+                    <option value="culture">culture</option>
+                    <option value="education">education</option>
+                </select>
             </div>
         </div>
 
         <div>
             <label>Représentant.e</label>
             <div>
-                <input type="text" placeholder="Nom" v-model="associationRepName">
-                <input type="text" placeholder="Prénom" v-model="associationRepSurname">
+                <input type="text" placeholder="Nom" v-model="association.association_representative_name">
+                <input type="text" placeholder="Prénom" v-model="association.association_representative_surname">
             </div>
         </div>
 
         <div>
             <label>Contacts</label>
             <div>
-                <input type="email" placeholder="Courriel" v-model="associationMail">
-                <input type="tel" placeholder="Téléphone" v-model="associationPhone">
+                <input type="email" placeholder="Courriel" v-model="association.association_mail">
+                <input type="tel" placeholder="Téléphone" v-model="association.association_phone">
             </div>
         </div>
 
         <div>
             <label>Coordonnées</label>
             <div>
-                <input type="text" placeholder="Voie/ Rue" v-model="associationAddress">
-                <input type="text" placeholder="Complément d'adresse" v-model="associationComplementAddress">
-                <input type="text" placeholder="Ville" v-model="associationTown">
-                <input type="text" placeholder="Code postal" v-model="associationPostalCode">
-                <input type="text" placeholder="Longitude" v-model="associationLng">
-                <input type="text" placeholder="Latitude" v-model="associationLat">
+                <input type="text" placeholder="Voie/ Rue" v-model="association.association_adress">
+                <input type="text" placeholder="Complément d'adresse" v-model="association.association_complement_address">
+                <input type="text" placeholder="Ville" v-model="association.association_town">
+                <input type="text" placeholder="Code postal" v-model="association.association_postal_code">
+                <input type="text" placeholder="Longitude" v-model="association.association_longitude">
+                <input type="text" placeholder="Latitude" v-model="association.association_latitude">
             </div>
         </div>
 

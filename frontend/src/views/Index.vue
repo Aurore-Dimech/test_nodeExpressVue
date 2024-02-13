@@ -4,19 +4,26 @@
     export default {
         name: 'Index',
 
+        data() {
+            return{
+                
+            }
+        },
+
         components: {
             AssociationList
         }
-    }
+}
 </script>
 
 <template>
+    
     <div>
         <AssociationList />
     </div>
+
 </template>
   
-<style>
+<style scoped lang="scss">
   
 </style>
-  

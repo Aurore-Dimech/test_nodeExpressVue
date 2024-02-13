@@ -5,6 +5,7 @@ CREATE TABLE associations(
     association_id INT(11) PRIMARY KEY AUTO_INCREMENT,
     association_name VARCHAR(50) NOT NULL,
     association_description TEXT,
+    association_category VARCHAR(30),
     association_representative_name VARCHAR(30),
     association_representative_surname VARCHAR(30),
     association_mail VARCHAR(200),
